@@ -11,17 +11,17 @@ Master's thesis &middot; Devika Rajasekar &middot; Leiden University &middot; 20
 ![H2O](https://img.shields.io/badge/H2O_AutoML-grid_search-E8991C)
 ![License](https://img.shields.io/badge/license-MIT-informational)
 
-<br/>
-
-<img src="figures/anim_set_grows.svg" alt="As epsilon widens, more near-optimal models enter the Rashomon set, but the SHAP feature-importance ranking keeps the same order." width="820"/>
-
 </div>
 
 ---
 
-An AutoML leaderboard often lists dozens of models that predict about equally well. Take one, run SHAP, and it names the features that matter. Take another, just as accurate, and does the answer change?
+An AutoML search returns many models with near-identical predictive accuracy. Explaining any one of them with SHAP produces a single feature-importance ranking. Whether a different, equally accurate model would produce the same ranking is examined here.
 
 This thesis measures that across six datasets and two AutoML frameworks. In short, **SHAP-based feature importance rankings stay stable across the near-optimal (Rashomon) set under both frameworks**, with mean temporal Spearman ρ from 0.77 (Cable Demand) to 0.98 (Electricity) at a 5% error tolerance. Framework choice changes how large the set is and which model families it contains. Neither of those affects stability.
+
+<div align="center">
+<img src="figures/anim_set_grows.svg" alt="As epsilon widens, more near-optimal models enter the Rashomon set, but the SHAP feature-importance ranking keeps the same order." width="820"/>
+</div>
 
 ## Question
 
@@ -36,7 +36,7 @@ If the models inside disagree on feature ranking, the explanation reported depen
 **RQ1.** Do data characteristics predict *where* attribution variability concentrates across near-optimal models?
 **RQ2.** Does framework choice shape the composition of the set, and does that composition determine how stable the explanations are?
 
-## Answer, in one table
+## Answer
 
 Mean temporal Spearman ρ at ε = 0.05, aggregated on per-model ranks across seeds and rolling-origin splits. AutoGluon rankings exclude the `item_id` series identifier. Set size is the range of qualifying models over seed and split.
 
