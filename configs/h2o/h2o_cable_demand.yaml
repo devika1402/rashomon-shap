@@ -1,0 +1,57 @@
+# H2O AutoML: Cable Demand Dataset (proprietary, 10 plants)
+# =============================================================
+# Usage:
+#   python src/h2o_pipeline.py --config configs/h2o/h2o_cable_demand.yaml
+
+project:
+  outdir: results
+  run_name: h2o_bq_cable_demand
+  random_seed: 42
+
+data:
+  source: "real"
+
+  real:
+    panel_path: "data/processed/panel_final.parquet"
+    metadata_path: "data/processed/feature_meta.parquet"
+    target_col: "target"
+    id_col: "item_id"
+    time_col: "timestamp"
+
+  horizon: 1
+  target_lags: 6
+  cov_lag: 1
+  freq: "M"
+
+splits:
+  n_splits: 4
+  min_train_time: 11
+  val_size: 3
+  test_size: 3
+
+h2o:
+  max_models: 20
+  max_runtime_secs: 1800
+  seeds: [0, 1, 2]
+  sort_metric: "MAE"
+  nfolds: 0
+  exclude_algos:
+    - "DeepLearning"
+  max_mem_size: "8G"
+
+rashomon:
+  eps_list: [0.02, 0.05, 0.10, 0.20, 0.30]
+
+shap:
+  background_size: 25   # ~train set for smallest split (11 months × 10 series - lags)
+  explain_size: 30      # full test fold (3 months × 10 series)
+  max_evals: 400
+  quantiles: [0.1, 0.5, 0.9]
+  prefer_tree: true
+  chunk_size: 30
+  show_progress: true
+
+report:
+  topk_features: 15
+  generate_plots: true
+  generate_data_report: true

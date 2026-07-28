@@ -1,0 +1,62 @@
+# AutoGluon best_quality: ETTh2
+# ================================
+# Purpose: produce non-trivial Rashomon sets via bagging+stacking.
+# n_splits=3 → 2 pairwise stability comparisons per (seed, eps).
+# Split math: need = min_train(4380) + val(2880) + test(2880) × n_splits(3) = 15900 hours
+# ETTh2 has 17420 total → 1520 hours headroom.
+#
+# Usage:
+#   python src/autogluon_pipeline.py --config configs/ag/bq/etth2.yaml
+#
+# SLURM: cpu-zen4; 3 splits × 3 seeds × 1800s ≈ 5h (exceeds cpu-short 4h limit)
+
+project:
+  outdir: results
+  run_name: bq_etth2
+  random_seed: 42
+
+data:
+  source: "benchmark"
+
+  benchmark:
+    name: "ETTh2"
+    cache_dir: "data/benchmark_cache"
+
+  horizon: 1
+  target_lags: 6
+  cov_lag: 1
+  freq: "H"
+
+splits:
+  n_splits: 3
+  min_train_time: 4380
+  val_size: 2880
+  test_size: 2880
+
+automl:
+  time_limit_s: 1800
+  presets: "best_quality"
+  seeds: [0, 1, 2]
+  eval_metric: "mae"
+  max_models_per_rashomon: 20
+  num_gpus: "auto"
+  num_cpus: "auto"
+  fit_strategy: "sequential"
+  verbosity: 2
+
+rashomon:
+  eps_list: [0.02, 0.05, 0.10, 0.20, 0.30]
+
+shap:
+  background_size: 100
+  explain_size: 50
+  max_evals: 500
+  quantiles: [0.1, 0.5, 0.9]
+  prefer_tree: true
+  chunk_size: 50
+  show_progress: true
+
+report:
+  topk_features: 10
+  generate_plots: true
+  generate_data_report: true

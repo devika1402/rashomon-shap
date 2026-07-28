@@ -1,0 +1,65 @@
+# H2O AutoML: Electricity Dataset
+# ==================================
+# H2O trains many hyperparameter variants across families (GBM, XGBoost,
+# DRF, XRT, GLM), so its Rashomon sets are larger and more diverse than
+# AutoGluon's, where one bagged learner keeps each set in a single family.
+#
+# Usage:
+#   python src/h2o_pipeline.py --config configs/h2o/h2o_electricity.yaml
+#
+# Prerequisites:
+#   pip install h2o
+#   java -version   # must be Java 8+
+
+project:
+  outdir: results
+  run_name: h2o_bq_electricity
+  random_seed: 42
+
+data:
+  source: "benchmark"
+
+  benchmark:
+    name: "Electricity"
+    n_series: 20
+    cache_dir: "data/benchmark_cache"
+
+  horizon: 1
+  target_lags: 6
+  cov_lag: 1
+  freq: "H"
+
+splits:
+  n_splits: 3
+  min_train_time: 42083
+  val_size: 15781
+  test_size: 15781
+
+# H2O AutoML settings (replaces the `automl` section of the AutoGluon configs)
+h2o:
+  max_models: 20          # max candidate models; matches Cavus, van Rijn and Biecek (2025)
+  max_runtime_secs: 1800   # 30 min per split/seed; matches Cavus, van Rijn and Biecek (2025)
+  seeds: [0, 1, 2]
+  sort_metric: "MAE"      # sort leaderboard by MAE (consistent with AutoGluon runs)
+  nfolds: 0               # use validation_frame instead of cross-validation
+                          # (temporal split is more appropriate than random CV for time series)
+  exclude_algos:          # DeepLearning excluded: slow + no native SHAP
+    - "DeepLearning"
+  max_mem_size: "8G"      # JVM heap
+
+rashomon:
+  eps_list: [0.02, 0.05, 0.10, 0.20, 0.30]  # same as AutoGluon runs for direct comparison
+
+shap:
+  background_size: 100
+  explain_size: 50
+  max_evals: 500
+  quantiles: [0.1, 0.5, 0.9]
+  prefer_tree: true   # uses H2O native SHAP for GBM/DRF/XGBoost; permutation for GLM
+  chunk_size: 50
+  show_progress: true
+
+report:
+  topk_features: 10
+  generate_plots: true
+  generate_data_report: true

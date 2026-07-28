@@ -1,0 +1,26 @@
+# Direct dependencies of the pipeline and analysis code, pinned to the
+# versions installed in the environment that produced the local analyses
+# (Python 3.9.19; the ALICE cluster runs used Python 3.9.25).
+# AutoGluon pulls in its own model backends (torch, ray, fastai); the three
+# tree libraries are pinned explicitly because SHAP TreeExplainer behaviour
+# depends on their versions.
+
+autogluon==1.4.0
+h2o==3.46.0.9
+shap==0.49.1
+
+numpy==2.0.2
+pandas==2.3.3
+scipy==1.13.1
+scikit-learn==1.6.1
+pyarrow==21.0.0
+
+lightgbm==4.6.0
+xgboost==2.1.4
+catboost==1.2.8
+
+matplotlib==3.9.4
+PyYAML==6.0.3
+tqdm==4.67.1
+
+# H2O additionally requires Java 8+ on PATH (check with: java -version).

@@ -1,0 +1,19 @@
+framework,dataset,run,label,mean_spearman,std_spearman,n_ok,n_insufficient
+AutoGluon,ETTh1,bq_etth1,full_set,,,0,9
+AutoGluon,ETTh1,bq_etth1,gbm_family,,,0,9
+AutoGluon,ETTh1,bq_etth1,forest,,,0,9
+AutoGluon,ETTh2,bq_etth2,full_set,0.805297557619539,0.03537924315847287,6,3
+AutoGluon,ETTh2,bq_etth2,gbm_family,,,0,9
+AutoGluon,ETTh2,bq_etth2,forest,0.7430340557275542,0.05004468370080729,6,3
+AutoGluon,ETTm1,bq_ettm1,full_set,0.9676642586859305,0.008341489957332051,3,6
+AutoGluon,ETTm1,bq_ettm1,gbm_family,,,0,9
+AutoGluon,ETTm1,bq_ettm1,forest,0.9676642586859305,0.008341489957332051,3,6
+AutoGluon,Electricity,bq_electricity,full_set,0.9891534391534391,0.005395768657694639,9,0
+AutoGluon,Electricity,bq_electricity,gbm_family,0.9879934879934881,0.0070406365046830205,9,0
+AutoGluon,Electricity,bq_electricity,forest,0.9920634920634921,0.006791390555948385,9,0
+AutoGluon,M4 Monthly,bq_m4_monthly,full_set,,,0,6
+AutoGluon,M4 Monthly,bq_m4_monthly,gbm_family,,,0,6
+AutoGluon,M4 Monthly,bq_m4_monthly,forest,,,0,6
+AutoGluon,Cable Demand,bq_cable_demand,full_set,0.7472170106316449,0.0142271955616461,3,9
+AutoGluon,Cable Demand,bq_cable_demand,gbm_family,0.7472170106316449,0.0142271955616461,3,9
+AutoGluon,Cable Demand,bq_cable_demand,forest,,,0,12

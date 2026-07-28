@@ -1,0 +1,54 @@
+# H2O AutoML: ETTm1 Dataset (15-minute frequency)
+# ===================================================
+# Usage:
+#   python src/h2o_pipeline.py --config configs/h2o/h2o_ettm1.yaml
+
+project:
+  outdir: results
+  run_name: h2o_bq_ettm1
+  random_seed: 42
+
+data:
+  source: "benchmark"
+
+  benchmark:
+    name: "ETTm1"
+    cache_dir: "data/benchmark_cache"
+
+  horizon: 1
+  target_lags: 6
+  cov_lag: 1
+  freq: "15T"
+
+splits:
+  n_splits: 3
+  min_train_time: 27869   # ~ETTh1 min_train * 4 (15-min is 4x hourly)
+  val_size: 10450
+  test_size: 10450
+
+h2o:
+  max_models: 20
+  max_runtime_secs: 1800
+  seeds: [0, 1, 2]
+  sort_metric: "MAE"
+  nfolds: 0
+  exclude_algos:
+    - "DeepLearning"
+  max_mem_size: "8G"
+
+rashomon:
+  eps_list: [0.02, 0.05, 0.10, 0.20, 0.30]
+
+shap:
+  background_size: 100
+  explain_size: 50
+  max_evals: 500
+  quantiles: [0.1, 0.5, 0.9]
+  prefer_tree: true
+  chunk_size: 50
+  show_progress: true
+
+report:
+  topk_features: 10
+  generate_plots: true
+  generate_data_report: true

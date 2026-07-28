@@ -1,0 +1,23 @@
+# Data and results are generated locally, never committed.
+data/
+results/
+logs/
+
+# The Cable Demand panel is proprietary and must never enter this repository.
+*.parquet
+*.xlsx
+
+__pycache__/
+*.py[cod]
+.venv*/
+.ipynb_checkpoints/
+
+.DS_Store
+._*
+.idea/
+.vscode/
+
+*.aux
+*.log
+*.out
+*.synctex.gz

@@ -1,0 +1,65 @@
+# AutoGluon best_quality: M4 Monthly
+# =====================================
+# Purpose: produce non-trivial Rashomon sets via bagging+stacking.
+# n_splits=2 (dataset too short for more) → 1 pairwise comparison per (seed, eps);
+# spearman_std will be NaN; only spearman_mean is meaningful here.
+# Split math: need = min_train(36) + val(13) + test(13) × n_splits(2) = 75 months
+# M4 Monthly subset has exactly 75 common timestamps → zero headroom.
+#
+# Usage:
+#   python src/autogluon_pipeline.py --config configs/ag/bq/m4_monthly.yaml
+#
+# SLURM: cpu-zen4; 2 splits × 3 seeds × 1800s ≈ 3h
+
+project:
+  outdir: results
+  run_name: bq_m4_monthly
+  random_seed: 42
+
+data:
+  source: "benchmark"
+
+  benchmark:
+    name: "M4"
+    freq_str: "Monthly"
+    n_series: 50
+    cache_dir: "data/benchmark_cache"
+
+  horizon: 1
+  target_lags: 6
+  cov_lag: 1
+  freq: "M"
+
+splits:
+  n_splits: 2
+  min_train_time: 36
+  val_size: 13
+  test_size: 13
+
+automl:
+  time_limit_s: 1800
+  presets: "best_quality"
+  seeds: [0, 1, 2]
+  eval_metric: "mae"
+  max_models_per_rashomon: 20
+  num_gpus: "auto"
+  num_cpus: "auto"
+  fit_strategy: "sequential"
+  verbosity: 2
+
+rashomon:
+  eps_list: [0.02, 0.05, 0.10, 0.20, 0.30]
+
+shap:
+  background_size: 100
+  explain_size: 50
+  max_evals: 500
+  quantiles: [0.1, 0.5, 0.9]
+  prefer_tree: true
+  chunk_size: 50
+  show_progress: true
+
+report:
+  topk_features: 10
+  generate_plots: true
+  generate_data_report: true

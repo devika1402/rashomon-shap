@@ -1,0 +1,19 @@
+framework,dataset,label,mean_spearman,delta_vs_full,flagged,n_ok,n_insufficient
+AutoGluon,ETTh1,full_set,,,False,0,9
+AutoGluon,ETTh1,gbm_family,,,False,0,9
+AutoGluon,ETTh1,forest,,,False,0,9
+AutoGluon,ETTh2,full_set,0.805297557619539,,False,6,3
+AutoGluon,ETTh2,gbm_family,,,False,0,9
+AutoGluon,ETTh2,forest,0.7430340557275542,-0.06226350189198482,True,6,3
+AutoGluon,ETTm1,full_set,0.9676642586859305,,False,3,6
+AutoGluon,ETTm1,gbm_family,,,False,0,9
+AutoGluon,ETTm1,forest,0.9676642586859305,0.0,False,3,6
+AutoGluon,Electricity,full_set,0.9891534391534391,,False,9,0
+AutoGluon,Electricity,gbm_family,0.9879934879934881,-0.0011599511599510448,False,9,0
+AutoGluon,Electricity,forest,0.9920634920634921,0.0029100529100529737,False,9,0
+AutoGluon,M4 Monthly,full_set,,,False,0,6
+AutoGluon,M4 Monthly,gbm_family,,,False,0,6
+AutoGluon,M4 Monthly,forest,,,False,0,6
+AutoGluon,Cable Demand,full_set,0.7472170106316449,,False,3,9
+AutoGluon,Cable Demand,gbm_family,0.7472170106316449,0.0,False,3,9
+AutoGluon,Cable Demand,forest,,,False,0,12

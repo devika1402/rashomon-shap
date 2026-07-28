@@ -1,0 +1,64 @@
+# AutoGluon best_quality: Electricity
+# ======================================
+# Purpose: produce non-trivial Rashomon sets via bagging+stacking.
+# 20-series subset of UCI LD2011_2014 (first 20 clients by CSV column order).
+# n_splits=3 → 2 pairwise stability comparisons per (seed, eps).
+# Split math: need = min_train(42083) + val(15781) + test(15781) × n_splits(3) = 105207
+# Electricity (20 series) has ~105216 common hourly observations → minimal headroom.
+#
+# Usage:
+#   python src/autogluon_pipeline.py --config configs/ag/bq/electricity.yaml
+#
+# SLURM: cpu-zen4; 3 splits × 3 seeds × 1800s ≈ 5h (exceeds cpu-short 4h limit)
+
+project:
+  outdir: results
+  run_name: bq_electricity
+  random_seed: 42
+
+data:
+  source: "benchmark"
+
+  benchmark:
+    name: "Electricity"
+    n_series: 20
+    cache_dir: "data/benchmark_cache"
+
+  horizon: 1
+  target_lags: 6
+  cov_lag: 1
+  freq: "H"
+
+splits:
+  n_splits: 3
+  min_train_time: 42083
+  val_size: 15781
+  test_size: 15781
+
+automl:
+  time_limit_s: 1800
+  presets: "best_quality"
+  seeds: [0, 1, 2]
+  eval_metric: "mae"
+  max_models_per_rashomon: 20
+  num_gpus: "auto"
+  num_cpus: "auto"
+  fit_strategy: "sequential"
+  verbosity: 2
+
+rashomon:
+  eps_list: [0.02, 0.05, 0.10, 0.20, 0.30]
+
+shap:
+  background_size: 50
+  explain_size: 20
+  max_evals: 200
+  quantiles: [0.1, 0.5, 0.9]
+  prefer_tree: true
+  chunk_size: 20
+  show_progress: true
+
+report:
+  topk_features: 10
+  generate_plots: true
+  generate_data_report: true
