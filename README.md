@@ -11,6 +11,10 @@ Master's thesis &middot; Devika Rajasekar &middot; Leiden University &middot; 20
 ![H2O](https://img.shields.io/badge/H2O_AutoML-grid_search-E8991C)
 ![License](https://img.shields.io/badge/license-MIT-informational)
 
+<br/>
+
+<img src="figures/anim_set_grows.svg" alt="As epsilon widens, more near-optimal models enter the Rashomon set, but the SHAP feature-importance ranking keeps the same order." width="820"/>
+
 </div>
 
 ---
@@ -56,6 +60,10 @@ Rankings are aggregated on per-model ranks (rank-then-mean), which is scale-inva
 
 AutoGluon's `best_quality` preset bags and stacks. In practice one bagged learner, a LightGBM variant on most datasets, is far enough ahead that the qualifying models stay within one family across all five ε thresholds and the sets stay small, down to a single model on ETTh1 and M4 Monthly. H2O AutoML runs a random grid search across GBM, XGBoost, DRF, XRT and GLM, so its sets are larger and mix families. Stability persists in both regimes.
 
+<div align="center">
+<img src="figures/anim_framework_contrast.svg" alt="AutoGluon builds small single-family Rashomon sets and H2O builds large multi-family ones, and both give stable SHAP rankings." width="820"/>
+</div>
+
 Under RQ1, data characteristics predict which feature group carries what little disagreement there is, without predicting whether disagreement happens. Features fall into three groups: autoregressive target lags, covariate lags, and calendar features. Under H2O, target lags are the most variable group on Electricity, ETTm1 and ETTh1, and a covariate or calendar group elsewhere. A dual-explainer control, which re-explains the identical models with a single explainer, shows the grouping is set by the SHAP explainer on two of those three datasets and by the models or data on the third (ETTh1).
 
 ## How the pipeline works
@@ -74,8 +82,8 @@ flowchart LR
 
     style C1 fill:#1F78B4,stroke:#145a8a,color:#fff
     style C2 fill:#E8991C,stroke:#b5760f,color:#fff
-    style D fill:#f0f4f8,stroke:#8A8F98
-    style F fill:#f0f4f8,stroke:#8A8F98
+    style D fill:#5b6672,stroke:#3d4650,color:#fff
+    style F fill:#5b6672,stroke:#3d4650,color:#fff
 ```
 
 ## Datasets

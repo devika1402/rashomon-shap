@@ -4,7 +4,7 @@
 # n_splits=2 (dataset too short for more) → 1 pairwise comparison per (seed, eps);
 # spearman_std will be NaN; only spearman_mean is meaningful here.
 # Split math: need = min_train(36) + val(13) + test(13) × n_splits(2) = 75 months
-# M4 Monthly subset has exactly 75 common timestamps → zero headroom.
+# The 50 series share 82 aligned timestamps, so the 75-month need leaves 7 months spare.
 #
 # Usage:
 #   python src/autogluon_pipeline.py --config configs/ag/bq/m4_monthly.yaml

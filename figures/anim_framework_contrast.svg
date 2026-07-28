@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" width="820" height="300" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" role="img" aria-label="AutoGluon builds small single-family Rashomon sets and H2O builds large multi-family ones, and both give stable SHAP rankings.">
+  <style>
+    text { fill: #3b4149; }
+    .title { fill: #24292f; font-weight: 700; }
+    .muted { fill: #8a8f98; }
+    .box   { fill: none; stroke: #d0d7de; }
+    @media (prefers-color-scheme: dark) {
+      text { fill: #adbac7; }
+      .title { fill: #e6edf3; }
+      .muted { fill: #768390; }
+      .box   { stroke: #444c56; }
+    }
+  </style>
+
+  <text x="40" y="32" class="title" font-size="17">Different sets, same stability</text>
+  <text x="40" y="52" class="muted" font-size="13">AutoGluon builds small single-family sets and H2O builds large multi-family ones. Both give stable rankings.</text>
+
+  <!-- LEFT: AutoGluon -->
+  <text x="60" y="86" fill="#1F78B4" font-size="14" font-weight="700">AutoGluon</text>
+  <rect x="60" y="96" width="300" height="96" rx="10" class="box" stroke-width="1.5"/>
+  <circle cx="150" cy="128" r="8" fill="#1F78B4"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.08;1" values="0;1;1"/></circle>
+  <circle cx="200" cy="128" r="8" fill="#1F78B4"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.12;1" values="0;1;1"/></circle>
+  <circle cx="175" cy="160" r="8" fill="#1F78B4"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.16;1" values="0;1;1"/></circle>
+  <text x="210" y="150" class="muted" font-size="11">one family</text>
+  <text x="210" y="166" class="muted" font-size="11">(bagged trees)</text>
+  <text x="60" y="214" class="muted" font-size="12">1 to 5 models per set</text>
+
+  <!-- RIGHT: H2O -->
+  <text x="460" y="86" fill="#E8991C" font-size="14" font-weight="700">H2O AutoML</text>
+  <rect x="460" y="96" width="300" height="96" rx="10" class="box" stroke-width="1.5"/>
+  <circle cx="500" cy="126" r="8" fill="#1F78B4"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.14;1" values="0;1;1"/></circle>
+  <circle cx="540" cy="126" r="8" fill="#1F78B4"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.20;1" values="0;1;1"/></circle>
+  <circle cx="580" cy="126" r="8" fill="#3BA99C"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.26;1" values="0;1;1"/></circle>
+  <circle cx="620" cy="126" r="8" fill="#3BA99C"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.32;1" values="0;1;1"/></circle>
+  <circle cx="660" cy="126" r="8" fill="#74C476"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.38;1" values="0;1;1"/></circle>
+  <circle cx="520" cy="162" r="8" fill="#74C476"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.44;1" values="0;1;1"/></circle>
+  <circle cx="560" cy="162" r="8" fill="#E8991C"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.50;1" values="0;1;1"/></circle>
+  <circle cx="600" cy="162" r="8" fill="#E8991C"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.56;1" values="0;1;1"/></circle>
+  <circle cx="640" cy="162" r="8" fill="#9471C4"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.62;1" values="0;1;1"/></circle>
+  <circle cx="680" cy="162" r="8" fill="#9471C4"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.68;1" values="0;1;1"/></circle>
+  <text x="700" y="132" class="muted" font-size="11">GBM</text>
+  <text x="700" y="150" class="muted" font-size="11">XGBoost</text>
+  <text x="700" y="168" class="muted" font-size="11">DRF/XRT/GLM</text>
+  <text x="460" y="214" class="muted" font-size="12">1 to 15 models, five families</text>
+
+  <!-- converge to one stable outcome -->
+  <defs>
+    <marker id="ar2" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8a8f98"/></marker>
+  </defs>
+  <path d="M175,220 L175,238 L405,238 L405,250" fill="none" class="box" stroke-width="1.4" marker-end="url(#ar2)"/>
+  <path d="M610,220 L610,238 L415,238 L415,250" fill="none" class="box" stroke-width="1.4" marker-end="url(#ar2)"/>
+
+  <g opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.72;0.78;1" values="0;0;1;1"/>
+    <rect x="250" y="252" width="320" height="34" rx="8" fill="#1F78B4"/>
+    <text x="410" y="274" fill="#fff" font-size="13" font-weight="600" text-anchor="middle">Stable ranking:  Spearman &#961; from 0.77 to 0.98</text>
+  </g>
+</svg>
