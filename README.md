@@ -19,7 +19,7 @@ Master's thesis &middot; Devika Rajasekar &middot; Leiden University &middot; 20
 
 ---
 
-Training one AutoML model and asking SHAP which features matter gives one answer. Its leaderboard has dozens of models with almost identical accuracy. Do they agree on which features matter?
+An AutoML leaderboard often lists dozens of models that predict about equally well. Take one, run SHAP, and it names the features that matter. Take another, just as accurate, and does the answer change?
 
 This thesis measures that across six datasets and two AutoML frameworks. In short, **SHAP-based feature importance rankings stay stable across the near-optimal (Rashomon) set under both frameworks**, with mean temporal Spearman ρ from 0.77 (Cable Demand) to 0.98 (Electricity) at a 5% error tolerance. Framework choice changes how large the set is and which model families it contains. Neither of those affects stability.
 
