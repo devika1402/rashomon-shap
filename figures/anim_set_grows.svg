@@ -2,12 +2,12 @@
   <style>
     text { fill: #3b4149; }
     .title { fill: #24292f; font-weight: 700; }
-    .muted { fill: #8a8f98; }
+    .muted { fill: #57606a; }
     .axis  { stroke: #d0d7de; }
     @media (prefers-color-scheme: dark) {
-      text { fill: #adbac7; }
-      .title { fill: #e6edf3; }
-      .muted { fill: #768390; }
+      text { fill: #d1d9e0; }
+      .title { fill: #f0f6fc; }
+      .muted { fill: #b0b8c1; }
       .axis  { stroke: #444c56; }
     }
   </style>
@@ -83,7 +83,8 @@
     <g transform="translate(0,262)">
       <circle cx="8" cy="-4" r="8" fill="#1F78B4"/>
       <path d="M4,-4 L7,-1 L12,-8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <text x="24" y="0" font-size="12" font-weight="600">temporal Spearman &#961; from 0.77 to 0.98 across all six datasets</text>
+      <text x="24" y="-2" font-size="12" font-weight="600">temporal Spearman &#961; from 0.77 to 0.98,</text>
+      <text x="24" y="15" font-size="12" font-weight="600">stable across all six datasets</text>
     </g>
   </g>
 </svg>

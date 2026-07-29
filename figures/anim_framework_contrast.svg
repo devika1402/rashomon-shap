@@ -2,12 +2,12 @@
   <style>
     text { fill: #3b4149; }
     .title { fill: #24292f; font-weight: 700; }
-    .muted { fill: #8a8f98; }
+    .muted { fill: #57606a; }
     .box   { fill: none; stroke: #d0d7de; }
     @media (prefers-color-scheme: dark) {
-      text { fill: #adbac7; }
-      .title { fill: #e6edf3; }
-      .muted { fill: #768390; }
+      text { fill: #d1d9e0; }
+      .title { fill: #f0f6fc; }
+      .muted { fill: #b0b8c1; }
       .box   { stroke: #444c56; }
     }
   </style>
