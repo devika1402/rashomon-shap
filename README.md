@@ -1,7 +1,5 @@
 <div align="center">
 
-# Rashomon &times; SHAP
-
 **Feature importance stability across near-optimal AutoML models for time series forecasting**
 
 Master's thesis &middot; Devika Rajasekar &middot; Leiden University &middot; 2026
