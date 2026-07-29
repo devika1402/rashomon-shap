@@ -17,7 +17,7 @@ Master's thesis &middot; Devika Rajasekar &middot; Leiden University &middot; 20
 
 An AutoML search returns many models with near-identical predictive accuracy. Explaining any one of them with SHAP produces a single feature-importance ranking. Whether a different, equally accurate model would produce the same ranking is examined here.
 
-This thesis measures that across six datasets and two AutoML frameworks. In short, **SHAP-based feature importance rankings stay stable across the near-optimal (Rashomon) set under both frameworks**, with mean temporal Spearman ρ from 0.77 (Cable Demand) to 0.98 (Electricity) at a 5% error tolerance. Framework choice changes how large the set is and which model families it contains. Neither of those affects stability.
+This thesis measures that across six datasets and two AutoML frameworks. In short, **SHAP-based feature importance rankings stay stable across the near-optimal (Rashomon) set under both frameworks**, with mean temporal Spearman ρ from 0.77 (Cable Demand) to 0.98 (Electricity) at a 5% error tolerance. Framework choice changes how large the set is and which model families it contains.
 
 <div align="center">
 <img src="figures/anim_set_grows.svg" alt="As epsilon widens, more near-optimal models enter the Rashomon set, but the SHAP feature-importance ranking keeps the same order." width="820"/>
