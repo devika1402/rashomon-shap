@@ -27,7 +27,9 @@ This thesis measures that across six datasets and two AutoML frameworks. In shor
 
 A *Rashomon set* is every model whose validation error falls within a tolerance ε of the best:
 
-$$R(\varepsilon) = \\{\, m : \mathrm{MAE}_{\mathrm{val}}(m) \le \mathrm{MAE}_{\mathrm{val}}(m^{*}) \times (1 + \varepsilon) \,\\}$$
+$$R(\varepsilon) = \{\, m : \mathrm{MAE}_{\mathrm{val}}(m) \le \mathrm{MAE}_{\mathrm{val}}(m^{*}) \times (1 + \varepsilon) \,\}$$
+
+Here MAE is measured on the validation split, m\* is the best model (the one with the lowest validation MAE), and a model enters R(ε) when its own validation MAE is at most (1 + ε) times that of m\*. At ε = 0.05, that admits every model within 5% of the best. Widening ε only ever adds models, so the set grows outward from the best model.
 
 If the models inside disagree on feature ranking, the explanation reported depends on which model happened to rank first rather than on the data (Fisher et al., 2019).
 
@@ -124,7 +126,7 @@ python analysis/make_figures.py
 
 Shared settings across all configs: **1800 s** per split and seed, **seeds [0, 1, 2]**, ε &isin; {0.02, 0.05, 0.10, 0.20, 0.30}, at most 20 models per set.
 
-Five of the six datasets reproduce end to end from a clean clone, because the public benchmarks download and cache on first use. Cable Demand does not, because its panel is proprietary and cannot be redistributed. Its preprocessing script and configs are included so the method stays auditable, and they raise a clear `FileNotFoundError` on a clean clone. To run them on another panel, supply a table with `item_id`, `timestamp`, `target` and any covariates, then point `data.real.panel_path` at it.
+Five of the six datasets reproduce end to end from a clean clone, because the public benchmarks download and cache on first use. Cable Demand does not, because its panel is proprietary and cannot be redistributed. Its preprocessing script and configs are included so the method stays auditable. To run them on another panel, supply a table with `item_id`, `timestamp`, `target` and any covariates, then point `data.real.panel_path` at it.
 
 `results/` is not committed. Running the pipeline regenerates it, and the figure scripts read from it. `figures/fig_robustness_bars.png` rebuilds from the committed robustness CSVs alone.
 
