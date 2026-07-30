@@ -130,8 +130,7 @@ Shared settings across all configs: **1800 s** per split and seed, **seeds [0, 1
 
 Five of the six datasets reproduce end to end from a clean clone, because the public benchmarks download and cache on first use. Cable Demand will not, because its panel is proprietary and cannot be redistributed. Its preprocessing script and configs are included so the method stays auditable. To run them on another panel, supply a table with `item_id`, `timestamp`, `target` and any covariates, then point `data.real.panel_path` at it.
 
-The result CSVs behind every figure and table are committed under [`results/`](results/): SHAP importances, stability metrics, Rashomon-set membership, and validation MAE for each model, across the five public datasets under both frameworks plus the dual-explainer runs. Model binaries and cached data stay out and regenerate from the pipeline, so `python analysis/make_figures.py` rebuilds the figures from the committed CSVs with no retraining. Cable Demand is proprietary, so its result files are withheld and it is left out when the figures regenerate, while its aggregate numbers remain in the tables above.
-
+The result CSVs of every figure and table are under [`results/`](results/): SHAP importances, stability metrics, Rashomon-sets, and validation MAE for each model, across the five public datasets under both frameworks plus the dual-explainer runs. Model binaries and cached data are not here.
 <details>
 <summary><b>Full module map</b> (every file, formula, and source)</summary>
 
@@ -199,18 +198,6 @@ The result CSVs behind every figure and table are committed under [`results/`](r
 | SHAP-range | Absolute spread of mean absolute SHAP across the set (eq:shap_range) |
 
 </details>
-
-## Citation
-
-```bibtex
-@mastersthesis{rajasekar2026rashomon,
-  title   = {Feature Importance Stability Across Near-Optimal AutoML Models
-             for Time Series Forecasting},
-  author  = {Rajasekar, Devika},
-  year    = {2026},
-  school  = {Leiden University}
-}
-```
 
 <details>
 <summary><b>References</b></summary>
