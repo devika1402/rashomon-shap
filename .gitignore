@@ -1,9 +1,17 @@
-# Data and results are generated locally, never committed.
+# Heavy training artefacts (model binaries, cached feature matrices, per-run
+# figures) are generated locally and never committed. The curated result CSVs
+# under results/ ARE committed.
+results/**/02_models/
+results/**/01_data/
+results/**/06_figures/
+results/**/07_reports/
+results/**/*.pkl
+results/**/*.parquet
 data/
-results/
 logs/
 
 # The Cable Demand panel is proprietary and must never enter this repository.
+results/*cable*/
 *.parquet
 *.xlsx
 

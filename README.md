@@ -130,7 +130,7 @@ Shared settings across all configs: **1800 s** per split and seed, **seeds [0, 1
 
 Five of the six datasets reproduce end to end from a clean clone, because the public benchmarks download and cache on first use. Cable Demand will not, because its panel is proprietary and cannot be redistributed. Its preprocessing script and configs are included so the method stays auditable. To run them on another panel, supply a table with `item_id`, `timestamp`, `target` and any covariates, then point `data.real.panel_path` at it.
 
-`results/` is not committed. Running the pipeline regenerates it, and the figure scripts read from it. `figures/fig_robustness_bars.png` rebuilds from the committed robustness CSVs alone.
+The result CSVs behind every figure and table are committed under [`results/`](results/): SHAP importances, stability metrics, Rashomon-set membership, and validation MAE for each model, across the five public datasets under both frameworks plus the dual-explainer runs. Model binaries and cached data stay out and regenerate from the pipeline, so `python analysis/make_figures.py` rebuilds the figures from the committed CSVs with no retraining. Cable Demand is proprietary, so its result files are withheld and it is left out when the figures regenerate, while its aggregate numbers remain in the tables above.
 
 <details>
 <summary><b>Full module map</b> (every file, formula, and source)</summary>
