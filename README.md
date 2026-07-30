@@ -1,5 +1,7 @@
 <div align="center">
 
+# Rashomon &times; SHAP
+
 **Feature importance stability across near-optimal AutoML models for time series forecasting**
 
 Master's thesis &middot; Devika Rajasekar &middot; Leiden University &middot; 2026
@@ -15,11 +17,13 @@ Master's thesis &middot; Devika Rajasekar &middot; Leiden University &middot; 20
 
 An AutoML search returns many models with near-identical predictive accuracy. Explaining any one of them with SHAP produces a single feature-importance ranking. Whether a different, equally accurate model would produce the same ranking is examined here.
 
-This thesis measures that across six datasets and two AutoML frameworks. In short, **SHAP-based feature importance rankings stay stable across the near-optimal (Rashomon) set under both frameworks**, with mean temporal Spearman ρ from 0.77 (Cable Demand) to 0.98 (Electricity) at a 5% error tolerance. Framework choice changes how large the set is and which model families it contains.
+This thesis measures that across six datasets and two AutoML frameworks. In short, **SHAP-based feature importance rankings stay stable across the near-optimal (Rashomon) set under both frameworks**, with mean temporal Spearman ρ from 0.77 (Cable Demand) to 0.98 (Electricity) at a 5% error tolerance. Framework choice changes how large the set is and which model families it contains. Neither of those affects stability.
 
 <div align="center">
 <img src="figures/anim_set_grows.svg" alt="As epsilon widens, more near-optimal models enter the Rashomon set, but the SHAP feature-importance ranking keeps the same order." width="820"/>
 </div>
+
+> If you are new to any of these terms, I have written a [glossary](GLOSSARY.md) that defines AutoML, SHAP, the Rashomon set, the model families, and the table columns.
 
 ## Question
 
@@ -68,7 +72,7 @@ Under RQ1, data characteristics predict which feature group carries what little 
 
 ## How the pipeline works
 
-Both frameworks run the same six stages. Stages 1 and 2 are shared, so any stability difference comes from the models rather than the data or the splits.
+Both frameworks run the same six stages. 
 
 ```mermaid
 flowchart LR
@@ -124,7 +128,7 @@ python analysis/make_figures.py
 
 Shared settings across all configs: **1800 s** per split and seed, **seeds [0, 1, 2]**, ε &isin; {0.02, 0.05, 0.10, 0.20, 0.30}, at most 20 models per set.
 
-Five of the six datasets reproduce end to end from a clean clone, because the public benchmarks download and cache on first use. Cable Demand does not, because its panel is proprietary and cannot be redistributed. Its preprocessing script and configs are included so the method stays auditable. To run them on another panel, supply a table with `item_id`, `timestamp`, `target` and any covariates, then point `data.real.panel_path` at it.
+Five of the six datasets reproduce end to end from a clean clone, because the public benchmarks download and cache on first use. Cable Demand will not, because its panel is proprietary and cannot be redistributed. Its preprocessing script and configs are included so the method stays auditable. To run them on another panel, supply a table with `item_id`, `timestamp`, `target` and any covariates, then point `data.real.panel_path` at it.
 
 `results/` is not committed. Running the pipeline regenerates it, and the figure scripts read from it. `figures/fig_robustness_bars.png` rebuilds from the committed robustness CSVs alone.
 
