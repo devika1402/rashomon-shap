@@ -1,6 +1,6 @@
 # results/
 
-Curated result files behind the figures and tables in the top-level [README](../README.md). These are the small analysis-ready outputs of the pipeline, not the model binaries or cached data, which are regenerated locally and never committed.
+Result files behind the figures and tables in the top-level [README](../README.md). These are the small analysis-ready outputs of the pipeline.
 
 ## Layout
 
@@ -17,9 +17,4 @@ Inside each run:
 - `04_stability/stability_summary.csv` and `epsilon_sensitivity*.csv` are the Spearman ρ, Kendall τ, and Jaccard numbers, by ε.
 - `05_rashomon/rashomon_models.csv` and `model_metrics.csv` record which models enter each set and their validation MAE.
 
-The `h2o_perm_*` runs carry `raw_importance.csv` (permutation for every model) and `raw_importance_alt.csv` (native explainer per family), so both arms see identical models.
-
-## What is not here
-
-- Model binaries and cached feature matrices. These are large and regenerate from the pipeline.
-- Cable Demand. Its panel is proprietary, so its result files are withheld. Cable still appears in the tables in the top-level README at the aggregate level.
+The `h2o_perm_*` runs have `raw_importance.csv` (permutation for every model) and `raw_importance_alt.csv` (native explainer per family), so both arms see identical models.
