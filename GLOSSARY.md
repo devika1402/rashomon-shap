@@ -44,6 +44,9 @@ Plain definitions of the terms used in this repository, grouped by where they ap
 
 **Stacking** trains a further model to combine the predictions of several base models.
 
+**Meta-ensemble** is the further model that stacking trains, one whose inputs are the predictions of the other models rather than the original features. AutoGluon's `best_quality` preset builds a weighted meta-ensemble on top of its bagged base learners.
+
+
 **Grid search** tries many combinations of settings. H2O's is random and budget-limited.
 
 ## 4. Explaining a model with SHAP
