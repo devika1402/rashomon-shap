@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 End-to-end AutoGluon pipeline: data loading, temporal splits, training,
 Rashomon set construction, SHAP computation, and stability analysis.
@@ -40,7 +39,7 @@ from shap_autogluon import ShapConfig, compute_shap_for_models
 
 # Pipeline stages (data loading, output organization, reports)
 from pipeline_stage_runner import (
-    setup_output_structure, generate_readme,
+    setup_output_structure,
     load_real_data, load_benchmark_data,
     generate_final_report,
 )
@@ -299,8 +298,7 @@ def main():
         # PHASE 2: Within-Set Agreement
         # The importance-distribution metric in this phase describes one Rashomon
         # set. This set is the final split at the first seed, for each epsilon.
-        # The metric is not averaged over splits or seeds. The temporal stability
-        # metrics in Phase 3 are different.
+
         logger.info("Phase 2: Within-Set Agreement...")
 
         for eps in eps_list:
@@ -356,7 +354,6 @@ def main():
 
         # Generate reports
         report = generate_final_report(dirs['reports'], cfg, summary_df, metrics_df, stability, dirs['root'].name)
-        generate_readme(dirs, cfg)
         logger.info(f"\n{report}")
 
         logger.info("=" * 70)
