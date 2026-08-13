@@ -1,12 +1,12 @@
 """
-Pipeline stage functions for the Rashomon×SHAP experiment.
+Pipeline stage functions.
 
-These functions come from run_all.py. They separate the concerns below:
+These functions separate the concerns below:
 - Data loading (real, benchmark)
 - Output directory organisation
 - Report generation
 
-The main orchestrator (run_all.py) imports these stages.
+The main (run_all.py) imports these stages.
 """
 from __future__ import annotations
 
