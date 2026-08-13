@@ -131,10 +131,6 @@ def generate_readme(dirs: Dict[str, Path], cfg: Dict) -> None:
 - **Spearman ρ 0.70-0.90**: Moderate, report top features with uncertainty
 - **Spearman ρ < 0.70**: Variable, avoid definitive claims
 
-**MCR Interpretation:**
-- Narrow MCR range: All models agree on importance
-- Wide MCR range: High uncertainty, feature importance varies by model
-
 **Epsilon (ε) Effects:**
 - Larger ε = more models in Rashomon set
 - Check `epsilon_sensitivity.csv` for stability trends
