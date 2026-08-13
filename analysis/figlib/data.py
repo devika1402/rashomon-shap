@@ -1,9 +1,5 @@
 """
 figlib.data: result-CSV loaders and feature-group logic.
-
-All access to ``results/<run>/...`` is in this file. This keeps the path
-layout in one place. A loader returns ``None`` when a run is missing or a file
-is absent. It does not raise. A figure module can then skip a missing run.
 """
 from __future__ import annotations
 
@@ -17,7 +13,7 @@ from .style import ROOT
 RESULTS = ROOT / "results"
 
 
-# ── Per-run loaders ───────────────────────────────────────────────────────────
+# Per-run loaders ───────────────────────────────────────────────────────────
 
 def load_eps_sensitivity(run: str, aggregator: str = "rank_then_mean") -> pd.DataFrame | None:
     """Read stability against epsilon for one run.
@@ -63,14 +59,13 @@ def load_rashomon_models(run: str) -> pd.DataFrame | None:
         return None
 
 
-# ── Feature-group classification ──────────────────────────────────────────────
+# Feature-group classification ──────────────────────────────────────────────
 
 def classify_feature(name: str) -> str:
     """Map a feature column name to one of: target_lag, cov, calendar, other.
 
     ``trend_lag1`` is a covariate. It is not a calendar feature. It is
-    Electricity's only covariate. The caption of ``tab:mcr_cv_groups`` records
-    this.
+    Electricity's only covariate.
 
     Branch order matters. Test the explicit calendar list BEFORE the ``_lag1``
     heuristic below. Calendar features are themselves lagged (``hour_lag1``,
@@ -91,7 +86,7 @@ def classify_feature(name: str) -> str:
 
 # These H2O families give contributions from exact TreeSHAP. DRF and XRT use
 # the Saabas approximation. GLM uses a permutation explainer. Their
-# attributions are not on a comparable scale.
+# attributions are since not on a comparable scale.
 TREE_EXACT_FAMILIES = ("GBM", "XGBoost")
 
 
@@ -109,10 +104,9 @@ def compute_group_cv(run: str, eps_target: float = 0.05,
     (mean, std-across-combinations) tuple. It returns ``None`` if there is no
     data.
 
-    This is the CV variant behind ``tab:mcr_cv_groups``. It uses population std
-    (ddof=0) over the mean, guarded by mean > 0. It differs from eq:shap_cv in
-    src/importance_aggregation.py. That equation uses sample std and an additive
-    1e-10 in the denominator.
+    This CV variant uses population std (ddof=0) over the mean, guarded by
+    mean > 0. It differs from eq:shap_cv in src/importance_aggregation.py.
+    That equation uses sample std and an additive 1e-10 in the denominator.
 
     Set ``tree_exact_only`` to restrict the rows to ``TREE_EXACT_FAMILIES``.
     This is required for every H2O run. Saabas (DRF, XRT) and permutation (GLM)
@@ -158,7 +152,6 @@ def compute_group_cv(run: str, eps_target: float = 0.05,
     for (split_id, seed), grp in df.groupby(["split_id", "seed"]):
         # A cell with fewer than min_models models has no cross-model spread.
         # Its std is 0. That would enter the average as a spurious CV = 0.
-        # Skip the cell. Do not record a zero.
         if grp["model"].nunique() < min_models:
             n_singleton += 1
             continue
@@ -174,7 +167,6 @@ def compute_group_cv(run: str, eps_target: float = 0.05,
                 records.append({"group": g, "cv": cv.mean()})
 
     if not records:
-        # Every cell was a singleton. The run is not evaluable for SHAP-CV.
         return (None, 0, n_singleton) if with_cells else None
 
     res = pd.DataFrame(records)
