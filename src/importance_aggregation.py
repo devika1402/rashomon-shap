@@ -1,10 +1,8 @@
 """
 Aggregation of per-model SHAP importances across the Rashomon set.
 
-This module computes the per-feature spread metrics of the thesis (ch. 3.8).
-These are SHAP-range (eq:shap_range) and SHAP-CV (eq:shap_cv). It reports them
-as Model Class Reliance (MCR) style bounds. It also computes ranks and
-distribution data for plotting.
+This module computes the per-feature spread metrics of the thesis.
+These are SHAP-range (eq:shap_range) and SHAP-CV (eq:shap_cv). It also computes ranks and distribution data for plotting.
 """
 from __future__ import annotations
 
@@ -13,12 +11,6 @@ from typing import List
 import numpy as np
 import pandas as pd
 
-
-# item_id identifies which series a row belongs to. It is bookkeeping only.
-# The thesis feature counts (tab:jaccard_k) are defined over the p tabular
-# features only. AutoGluon models receive this column. SHAP produces an
-# attribution for it. Every metric in this module must drop item_id before it
-# aggregates or ranks.
 NON_FEATURE_COLUMNS = ("item_id",)
 
 
@@ -89,7 +81,7 @@ def mean_rank_per_split(summary_df: pd.DataFrame) -> pd.DataFrame:
     The function ranks features by descending mean_importance. Rank 1 is the
     most important feature.
 
-    WARNING (scale sensitivity). This function ranks the MEAN OF RAW SHAP
+     This function ranks the MEAN OF RAW SHAP
     MAGNITUDES across the models of a Rashomon set. Mean-absolute-SHAP values
     are comparable across models only when those models share an explainer.
     H2O's DRF/XRT models use Saabas path attributions. These attributions are
