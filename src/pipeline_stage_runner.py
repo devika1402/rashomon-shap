@@ -35,7 +35,6 @@ def setup_output_structure(run_dir: Path) -> Dict[str, Path]:
 
     Directory structure:
         results/<run_name>/
-        ├── README.md                 # Auto-generated navigation guide
         ├── config.json
         │
         ├── 01_data/                  # Input data artifacts
@@ -69,77 +68,6 @@ def setup_output_structure(run_dir: Path) -> Dict[str, Path]:
         path.mkdir(parents=True, exist_ok=True)
 
     return dirs
-
-
-def generate_readme(dirs: Dict[str, Path], cfg: Dict) -> None:
-    """Generate a README.md with navigation guide for the results."""
-    readme = f"""# Rashomon×SHAP Results
-
-**Run:** {dirs['root'].name}
-**Generated:** {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M')}
-
-## Quick Navigation
-
-### Key Results
-
-| What you want | Where to look |
-|---------------|---------------|
-| **Top features** | `03_importance/feature_ranks.csv` |
-| **Stability summary** | `04_stability/stability_summary.csv` |
-| **Quick visual** | `06_figures/importance/importance_eps_0_05.png` |
-
-### Directory Guide
-
-```
-{dirs['root'].name}/
-│
-├── 01_data/                 # Input data
-│   ├── panel.parquet        # Raw panel data
-│   ├── supervised.parquet   # Tabularized features
-│   └── splits.csv           # Train/val/test splits
-│
-├── 02_models/               # Trained models (per seed/split)
-│
-├── 03_importance/           # SHAP importance
-│   ├── raw_importance.csv   # Per-model SHAP values
-│   ├── aggregated_summary.csv  # Mean + quantiles
-│   └── feature_ranks.csv    # Rankings per context
-│
-├── 04_stability/            # Stability metrics
-│   ├── temporal_stability.json  # Spearman, Kendall, Jaccard
-│   ├── stability_summary.csv    # Aggregated by (seed, eps)
-│   ├── epsilon_sensitivity.csv  # Stability vs epsilon
-│   └── rank_matrices/       # Feature ranks across splits
-│
-├── 05_rashomon/             # Rashomon set analysis
-│   ├── rashomon_models.csv  # Models in each set
-│   └── model_metrics.csv    # MAE per model
-│
-├── 06_figures/              # Visualizations
-│   ├── importance/          # Bar charts, violin plots
-│   ├── stability/           # Heatmaps, comparisons
-│   └── rashomon/            # Diversity plots
-│
-└── 07_reports/              #  summaries
-    └── final_report.txt
-```
-
-### Interpretation Guide
-
-**Stability Thresholds:**
-- **Spearman ρ > 0.90**: Highly stable, report with confidence
-- **Spearman ρ 0.70-0.90**: Moderate, report top features with uncertainty
-- **Spearman ρ < 0.70**: Variable, avoid definitive claims
-
-**Epsilon (ε) Effects:**
-- Larger ε = more models in Rashomon set
-- Check `epsilon_sensitivity.csv` for stability trends
-"""
-    with open(dirs['reports'] / 'README.md', 'w') as f:
-        f.write(readme)
-
-    with open(dirs['root'] / 'README.md', 'w') as f:
-        f.write(readme)
 
 
 # =============================================================================
