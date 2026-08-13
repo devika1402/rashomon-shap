@@ -120,7 +120,7 @@ def generate_readme(dirs: Dict[str, Path], cfg: Dict) -> None:
 │   ├── stability/           # Heatmaps, comparisons
 │   └── rashomon/            # Diversity plots
 │
-└── 07_reports/              # Human-readable summaries
+└── 07_reports/              #  summaries
     └── final_report.txt
 ```
 
